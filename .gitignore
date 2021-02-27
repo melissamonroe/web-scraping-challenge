@@ -1,6 +1,5 @@
 config.py
 
-
 # C extensions
 *.so
 
