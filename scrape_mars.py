@@ -12,7 +12,7 @@ import pandas as pd
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 
-import config 
+import config
 
 class scraper:
 
@@ -61,7 +61,7 @@ class scraper:
         usgs_astro_search = '/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
         
         # mars news
-        soup_news = scraper.get_soup('',url_nasanews,browser)
+        soup_news = self.get_soup(url_nasanews,browser)
         news_title = ''
         news_p = ''
         list_item = soup_news.find('div',class_='slide')
@@ -69,7 +69,7 @@ class scraper:
         news_p = list_item.find('div',class_='rollover_description_inner').text.strip()
 
         # featured image
-        soup_spaceimage = scraper.get_soup('',url_spaceimage,browser)
+        soup_spaceimage = self.get_soup(url_spaceimage,browser)
         header = soup_spaceimage.find('div',class_='floating_text_area')
         featured_image_url = url_spaceimage.replace('index.html','') + header.a['href']
 
@@ -80,7 +80,7 @@ class scraper:
         html_table = df.to_html()
 
         # mars hemisphere
-        soup_marshem = scraper.get_soup('', url_usgs_astro + usgs_astro_search,browser)
+        soup_marshem = self.get_soup(url_usgs_astro + usgs_astro_search, browser)
         sleep(5)
         items = soup_marshem.find_all('div',class_='item')
         item_detail_urls = []
@@ -92,7 +92,7 @@ class scraper:
             title = ''
             img_url = ''        
             
-            soup_hemdetails = scraper.get_soup('',url,browser)
+            soup_hemdetails = self.get_soup(url,browser)
             sleep(5)
             title = soup_hemdetails.find('h2',class_='title').text
 
@@ -108,13 +108,71 @@ class scraper:
             }
 
             hemisphere_image_urls.append(hemisphere_img_dict)
-
+        
+        # if outside source scrape has problem (url will not resolve), add test placeholder images
+        if len(hemisphere_image_urls) == 0:
+            hemisphere_image_urls = [
+                {
+                'title': 'Valles Marineris Hemisphere Enhanced',
+                'img_url': 'images/mars1.jpg'
+                },
+                {
+                'title': 'Cerberus Hemisphere Enhanced',
+                'img_url': 'images/mars2.jpg'
+                },
+                {
+                'title': 'Schiaparelli Hemisphere Enhanced',
+                'img_url': 'images/mars3.jpg'
+                },
+                {
+                'title': 'Syrtis Marjo Hemisphere Enhanced',
+                'img_url': 'images/mars4.jpg'
+                }
+            ]
 
         mars_dict = {
             'news_title': news_title,
-            'new_p': news_p,
+            'news_p': news_p,
             'featured_image_url': featured_image_url,
             'mars_facts_html': html_table,
             'hemisphere_image_urls':hemisphere_image_urls
         }
+
+        #######################################
+        # insert or update document in mongoDB
+        #######################################
+
+        client = pymongo.MongoClient(config.mongo_conn)
+
+        # Define the 'mars_collection' database in Mongo
+        db = client.mars_db
+        collection = db.mars_collection
+
+        # check if document already exists
+        objectId = ''
+        for item in collection.find():
+            objectId = item['_id']
+            break   
+
+        if objectId == '':
+            collection.insert(mars_dict)
+        else:
+            modified_datetime = datetime.datetime.utcnow()
+            
+            collection.find_one_and_update(
+                {'_id' : objectId},
+                {'$set':
+                    {
+                        'modified_datetime': modified_datetime,
+                        'news_title': mars_dict['news_title'],                
+                        'news_p': mars_dict['news_p'],
+                        'featured_image_url': mars_dict['featured_image_url'],
+                        'mars_facts_html': mars_dict['mars_facts_html'],
+                        'hemisphere_image_urls':mars_dict['hemisphere_image_urls']
+                    }
+                    
+                },upsert=True
+            )
+            
+
         return mars_dict
