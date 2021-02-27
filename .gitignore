@@ -1,5 +1,5 @@
-mission_to_mars/config.py
-cl_parser.py
+config.py
+
 
 # C extensions
 *.so
