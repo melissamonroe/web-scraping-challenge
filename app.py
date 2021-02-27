@@ -17,6 +17,12 @@ collection = db.mars_collection
 @app.route("/")
 def index():
     mars_data = collection.find_one()
+    if (len(mars_data)) == 0:
+        my_scraper = scrape_mars.scraper()
+        executable_path = {'executable_path': ChromeDriverManager().install()}
+        browser = Browser('chrome', **executable_path, headless=False)
+        my_scraper.scrape(browser)    
+    
     return render_template("index.html", mars_data=mars_data)
 
 

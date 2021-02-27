@@ -124,10 +124,13 @@
     
             <h3>Featured Mars Image</h3>
             <p class="font-italic">
-              Featured image from https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html
+              Featured image from 
+              <a href="https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html" target="_blank">
+                https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html
+              </a>
             </p>
             <div id="featuredimage">
-              <img src="{{mars_data.featured_image_url}}" alt="" class="img-fluid">
+              <a href="{{mars_data.featured_image_url}}" target="_blank"><img src="{{mars_data.featured_image_url}}" alt="" class="img-fluid"></a>
             </div>
             
               
@@ -176,7 +179,9 @@
           {% for hemisphere_image_url in mars_data.hemisphere_image_urls %}
           <div class="col-lg-6" style="margin: 6px 0">
             <p>
-              <img src="{{hemisphere_image_url['img_url']}}" class="img-fluid" alt="">
+              <a href="{{hemisphere_image_url['img_url_original']}}" target="_blank">
+                <img src="{{hemisphere_image_url['img_url_sample']}}" class="img-fluid" alt="">
+              </a>
               <h3>
                 {{hemisphere_image_url['title']}}
               </h3>

@@ -79,4 +79,5 @@ Used MongoDB with Flask templating to create a new HTML page that displays all o
 ### Note*
 USGS Astrogeology site was up and working on 2/26/2021 [USGS Astrogeology site](https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars). This site was used to scrape the 4 hemisphere images. On 2/27/2021, the site went down. In my scrape_mars.py, if the site is unavailible, the app, uses a stored list of hemisphere_image_url dictionaries to pull in previously stored images and image titles. When the site is up again, it will pull in what is available from https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars.
 
+Update: Later in the day on 2/27/2021, usgs website is up again.
 - - -

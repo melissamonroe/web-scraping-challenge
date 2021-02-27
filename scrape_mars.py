@@ -101,11 +101,14 @@ class scraper:
             sleep(5)
             for a in downloads.find_all('a'):
                 if a.text.lower() == 'original':
-                    img_url = a['href']
+                    img_url_original = a['href']
+                elif a.text.lower() == 'sample':
+                    img_url_sample = a['href']
 
             hemisphere_img_dict = {
                 'title': title,
-                'img_url': img_url
+                'img_url_original': img_url_original,
+                'img_url_sample': img_url_sample
             }
 
             hemisphere_image_urls.append(hemisphere_img_dict)
@@ -115,19 +118,23 @@ class scraper:
             hemisphere_image_urls = [
                 {
                 'title': 'Valles Marineris Hemisphere Enhanced',
-                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars1.jpg'
+                'img_url_original': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars1.jpg',
+                'img_url_sample': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars1.jpg'
                 },
                 {
                 'title': 'Cerberus Hemisphere Enhanced',
-                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars2.jpg'
+                'img_url_original': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars2.jpg',
+                'img_url_sample': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars2.jpg'
                 },
                 {
                 'title': 'Schiaparelli Hemisphere Enhanced',
-                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars3.jpg'
+                'img_url_original': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars3.jpg',
+                'img_url_sample': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars3.jpg'
                 },
                 {
                 'title': 'Syrtis Marjo Hemisphere Enhanced',
-                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars4.jpg'
+                'img_url_original': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars4.jpg',
+                'img_url_sample': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars4.jpg'
                 }
             ]
 
