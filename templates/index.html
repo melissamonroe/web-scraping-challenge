@@ -51,17 +51,17 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="/">Home</a></li>
           <li><a href="#latestmarsnews">Latest Mars News</a></li>
           <li><a href="#marsfacts">Mars Facts</a></li>
           <li><a href="#featuredimage">Featured Mars Image</a></li>          
           <li class="drop-down"><a href="#marshemispheres">Mars Hemispheres</a>
             <ul>
-              <li><a href="#marshemispheres"></a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
+              {% for hemisphere_image_url in mars_data.hemisphere_image_urls %}
+                  <li><a href="#marshemispheres"> {{hemisphere_image_url['title']}} </a></li>
+              {% endfor %}        
             </ul>
+
           </li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -122,112 +122,27 @@
             <h4 class="heading">{{mars_data.news_title}}</h4>
             <p>{{mars_data.news_p}}</p>
     
+            <h3>Featured Mars Image</h3>
+            <p class="font-italic">
+              Featured image from https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html
+            </p>
+            <div id="featuredimage">
+              <img src="{{mars_data.featured_image_url}}" alt="" class="img-fluid">
+            </div>
+            
+              
+
           </div>
           <div id="marsfacts" class="col-lg-6 pt-4 pt-lg-0">
-              {{mars_data.mars_facts_html}}            
+            <h4 class="heading">Check out these fun Mars facts</h4>          
+            {{mars_data.mars_facts_html.replace('table','table class="table"') | safe}}                        
           </div>
+          
+
         </div>
 
       </div>
-    </section><!-- End About Section -->
-
-    <!-- ======= Features Section ======= -->
-    <section id="featuredimage" class="features">
-      <div class="container">
-
-        <div class="tab-content" data-aos="fade-up">
-          <div class="tab-pane active show" id="tab-1">
-            <div class="row">
-
-              <div id="featuredimage" class="col-lg-6 text-center">
-                <img src="{{mars_data.featured_image_url}}" alt="" class="img-fluid">
-              </div>
-              <div class="col-lg-6">
-                <h3>Featured Mars Image</h3>
-                <p class="font-italic">
-                  From https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html
-                </p>
-                
-              </div>              
-            </div>
-          </div>
-          <div class="tab-pane" id="tab-2">
-            <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Neque exercitationem debitis soluta quos debitis quo mollitia officia est</h3>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
-                </p>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="ri-check-double-line"></i> Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</li>
-                  <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                </ul>
-              </div>
-              <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="https://melissamonroe.github.io/web-scraping-challenge/templates/assets/img/features-2.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tab-3">
-            <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Voluptatibus commodi ut accusamus ea repudiandae ut autem dolor ut assumenda</h3>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
-                </p>
-                <ul>
-                  <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="ri-check-double-line"></i> Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</li>
-                </ul>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-              </div>
-              <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="https://melissamonroe.github.io/web-scraping-challenge/templates/assets/img/features-3.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tab-4">
-            <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Omnis fugiat ea explicabo sunt dolorum asperiores sequi inventore rerum</h3>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
-                </p>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                </ul>
-              </div>
-              <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <img src="https://melissamonroe.github.io/web-scraping-challenge/templates/assets/img/features-4.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Features Section -->
+    </section><!-- End About Section -->  
 
     <!-- ======= Cta Section ======= -->
     <section id="cta" class="cta">
@@ -259,11 +174,13 @@
         <div class="row content" data-aos="fade-up">
 
           {% for hemisphere_image_url in mars_data.hemisphere_image_urls %}
-          <div class="col-lg-6">
-            <img src="{{hemisphere_image_url['img_url']}}" class="img-fluid" alt="">
-            <h3>
-              {{hemisphere_image_url['title']}}
-            </h3>
+          <div class="col-lg-6" style="margin: 6px 0">
+            <p>
+              <img src="{{hemisphere_image_url['img_url']}}" class="img-fluid" alt="">
+              <h3>
+                {{hemisphere_image_url['title']}}
+              </h3>
+            </p>
           </div>
           {% endfor %}        
         

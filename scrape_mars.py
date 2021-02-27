@@ -75,8 +75,9 @@ class scraper:
 
         # mars facts
         tables = pd.read_html(url_spacefacts)        
-        df = tables[0]
-        df.columns = ['Fact Label', 'Fact']        
+        df = tables[0]        
+        df.columns = ['Fact', 'Fact Details']        
+        df.set_index('Fact')
         html_table = df.to_html()
 
         # mars hemisphere
