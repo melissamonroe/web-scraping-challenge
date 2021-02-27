@@ -12,22 +12,22 @@ import pandas as pd
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 
-import config
+import ipython_config
 
 class scraper:
 
     # init method or constructor
     def __init__(self):
-        self.name = config.pg_username
+        self.name = ipython_config.pg_username
         self.listings_collection = None
 
-        conn = config.mongo_conn
+        conn = ipython_config.mongo_conn
         client = pymongo.MongoClient(conn)
 
         client.server_info() # Will throw an exception if DB is not connected. @TODO Add better handling of this
 
         # Define database and collection
-        db = client[config.db_name]
+        db = client[ipython_config.db_name]
         self.listings_collection = db.listings
 
 
@@ -114,19 +114,19 @@ class scraper:
             hemisphere_image_urls = [
                 {
                 'title': 'Valles Marineris Hemisphere Enhanced',
-                'img_url': 'images/mars1.jpg'
+                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars1.jpg'
                 },
                 {
                 'title': 'Cerberus Hemisphere Enhanced',
-                'img_url': 'images/mars2.jpg'
+                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars2.jpg'
                 },
                 {
                 'title': 'Schiaparelli Hemisphere Enhanced',
-                'img_url': 'images/mars3.jpg'
+                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars3.jpg'
                 },
                 {
                 'title': 'Syrtis Marjo Hemisphere Enhanced',
-                'img_url': 'images/mars4.jpg'
+                'img_url': 'https://melissamonroe.github.io/web-scraping-challenge/images/mars4.jpg'
                 }
             ]
 
@@ -142,7 +142,7 @@ class scraper:
         # insert or update document in mongoDB
         #######################################
 
-        client = pymongo.MongoClient(config.mongo_conn)
+        client = pymongo.MongoClient(ipython_config.mongo_conn)
 
         # Define the 'mars_collection' database in Mongo
         db = client.mars_db
