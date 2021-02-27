@@ -1,7 +1,5 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+mission_to_mars/config.py
+cl_parser.py
 
 # C extensions
 *.so
